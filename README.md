@@ -16,19 +16,9 @@ To explore the differences between the execution configurations of GPU base vect
 7. Free device global memory with cudaFree and free host memory allocated with malloc before concluding the program.
 ## Output:
 ```c
-#include "../common/common.h"
+#include "common.h"
 #include <cuda_runtime.h>
 #include <stdio.h>
-
-/*
- * This example demonstrates a simple vector sum on the GPU and on the host.
- * sumArraysOnGPU splits the work of the vector sum across CUDA threads on the
- * GPU. Only a single thread block is used in this small case, for simplicity.
- * sumArraysOnHost sequentially iterates through vector elements on the host.
- * This version of sumArrays adds host timers to measure GPU and CPU
- * performance.
- */
-
 void checkResult(float *hostRef, float *gpuRef, const int N)
 {
     double epsilon = 1.0E-8;
@@ -50,7 +40,6 @@ void checkResult(float *hostRef, float *gpuRef, const int N)
 
     return;
 }
-
 void initialData(float *ip, int size)
 {
     // generate different seed for random number
@@ -64,7 +53,6 @@ void initialData(float *ip, int size)
 
     return;
 }
-
 void sumArraysOnHost(float *A, float *B, float *C, const int N)
 {
     for (int idx = 0; idx < N; idx++)
@@ -78,7 +66,6 @@ __global__ void sumArraysOnGPU(float *A, float *B, float *C, const int N)
 
     if (i < N) C[i] = A[i] + B[i];
 }
-
 int main(int argc, char **argv)
 {
     printf("%s Starting...\n", argv[0]);
@@ -132,7 +119,7 @@ int main(int argc, char **argv)
     CHECK(cudaMemcpy(d_C, gpuRef, nBytes, cudaMemcpyHostToDevice));
 
     // invoke kernel at host side
-    int iLen = 512;
+    int iLen = 256;
     dim3 block (iLen);
     dim3 grid  ((nElem + block.x - 1) / block.x);
 
@@ -169,7 +156,7 @@ int main(int argc, char **argv)
 ```
 
 ## Output:
-![1](https://github.com/KeerthikaNagarajan/PCA-GPU-based-vector-summation.-Explore-the-differences./assets/93427089/41b9b6d0-342b-4307-b5e4-f5b5ea2bfff2)
+![pc](https://github.com/KeerthikaNagarajan/PCA-GPU-based-vector-summation.-Explore-the-differences./assets/93427089/c04ddc48-d7f7-4476-b633-3ad902b5858c)
 
 
 ## Result:

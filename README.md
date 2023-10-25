@@ -1,10 +1,9 @@
-# PCA-GPU-based-vector-summation.-Explore-the-differences.
+# PCA GPU based vector summation. Explore the differences.
 i) Using the program sumArraysOnGPU-timer.cu, set the block.x = 1023. Recompile and run it. Compare the result with the execution confi guration of block.x = 1024. Try to explain the difference and the reason.
-
 ii) Refer to sumArraysOnGPU-timer.cu, and let block.x = 256. Make a new kernel to let each thread handle two elements. Compare the results with other execution confi gurations.
+
 ## Aim:
 To explore the differences between the execution configurations of GPU base vector summation.
-
 
 ## Procedure:
 1. Initialize CUDA device, allocate host memory, and set data size (nElem).
@@ -14,7 +13,12 @@ To explore the differences between the execution configurations of GPU base vect
 5. Check for GPU kernel errors using cudaGetLastError and transfer the GPU result back to the host.
 6. Compare CPU and GPU results using checkResult and print whether they match.
 7. Free device global memory with cudaFree and free host memory allocated with malloc before concluding the program.
-## Output:
+   
+## Program:
+```
+Developed by: Keerthika N
+Register No: 212221230049
+```
 ```c
 #include "common.h"
 #include <cuda_runtime.h>
@@ -156,8 +160,7 @@ int main(int argc, char **argv)
 ```
 
 ## Output:
-![pc](https://github.com/KeerthikaNagarajan/PCA-GPU-based-vector-summation.-Explore-the-differences./assets/93427089/c04ddc48-d7f7-4476-b633-3ad902b5858c)
-
+![1](https://github.com/KeerthikaNagarajan/PCA-GPU-based-vector-summation.-Explore-the-differences./assets/93427089/6963714e-f544-4c98-9c4d-2e9384994994)
 
 ## Result:
 The block size with 512 performs better in the GPU with an elapsed time of 0.019 seconds whereas the block size 1023 performed the operation in 0.02 seconds.Thus, the difference between the execution configurations of PCA-GPU-based vector summation had been explored successfully.
